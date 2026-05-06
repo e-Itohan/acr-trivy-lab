@@ -8,13 +8,13 @@ on:
 jobs:
   build-scan-push:
     runs-on: ubuntu-latest
-    
+
     steps:
       # 1. Checkout Code
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-            fetch-depth: 0
+          fetch-depth: 0
 
       # 2. Login to Azure Container Registry
       # We log in early so we are ready, but we WON'T push yet.
@@ -38,10 +38,10 @@ jobs:
       - name: Run Trivy Security Scan
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: '${{ secrets.ACR_LOGIN_SERVER }}/vulnerable-app:${{ github.run_number }}'
-          format: 'table'
-          exit-code: '1'
-          severity: 'CRITICAL'
+          image-ref: "${{ secrets.ACR_LOGIN_SERVER }}/vulnerable-app:${{ github.run_number }}"
+          format: "table"
+          exit-code: "1"
+          severity: "CRITICAL"
           ignore-unfixed: true
 
       # 5. Push to ACR
